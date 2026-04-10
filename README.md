@@ -8,9 +8,19 @@ Many Pokémon fan games and ROM hacks are released as individual Windows executa
 This launcher provides a clean and convenient way to organize them in one place and launch them from a single interface.
 
 
-## Screenshot
+## Screenshots
 
-![Launcher Main UI](assets/screenshots/launcher_main.png)
+### Main Launcher
+
+![Launcher](assets/screenshots/main_launcher.png)
+
+### Manage Games
+
+![Game Manager](assets/screenshots/manage_games.png)
+
+### Theme Selector
+
+![Theme Selector](assets/screenshots/theme_selector.png)
 
 
 ---
