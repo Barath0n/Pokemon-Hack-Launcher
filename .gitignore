@@ -1,6 +1,35 @@
-games.json
-pycache/
+# Python cache
+__pycache__/
 *.pyc
+*.pyo
+*.pyd
+
+# Build / packaging
 build/
 dist/
-*.exe
+*.spec
+
+# Virtual environments
+venv/
+.env/
+.envrc
+
+# Logs
+*.log
+
+# OS files
+.DS_Store
+Thumbs.db
+
+# IDE files
+.vscode/
+.idea/
+
+# Temporary files
+*.tmp
+*.bak
+
+# Local launcher data
+games.json
+settings.json
+favorites.json
