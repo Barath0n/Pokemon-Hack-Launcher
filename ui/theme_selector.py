@@ -272,7 +272,7 @@ def open_theme_selector(
 
     preview_card_text = tk.Label(
         preview_card,
-        text="A fan-made Pokémon adventure with unique mechanics and its own style.",
+        text="A custom Pokémon adventure with optional description text shown here.",
         bg=current_theme["card"],
         fg=current_theme["subtle_text"],
         font=("Segoe UI", 9),

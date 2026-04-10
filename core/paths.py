@@ -29,3 +29,7 @@ THEMES_FILE = os.path.join(BASE_DIR, "themes.json")
 ICON_FILE = os.path.join(BASE_DIR, "icon.ico")
 SERVER_VERSION_FILE = os.path.join(BASE_DIR, "server_version.txt")
 ROADMAP_FILE = os.path.join(BASE_DIR, "Roadmap.txt")
+
+# Cache directories.
+CACHE_DIR = os.path.join(BASE_DIR, "cache")
+ICON_CACHE_DIR = os.path.join(CACHE_DIR, "icons")

@@ -89,6 +89,44 @@ def load_games() -> list[dict]:
     return valid_games
 
 
+def save_games(games: list[dict]) -> bool:
+    """
+    Save the current game library to games.json.
+
+    Only valid entries are written to the file. This keeps the JSON structure
+    clean and avoids storing malformed objects accidentally.
+    """
+    if not isinstance(games, list):
+        return False
+
+    cleaned_games = []
+
+    for entry in games:
+        if not isinstance(entry, dict):
+            continue
+
+        name = entry.get("name", "")
+        path = entry.get("path", "")
+        description = entry.get("description", "")
+
+        if not isinstance(name, str) or not name.strip():
+            continue
+
+        if not isinstance(path, str) or not path.strip():
+            continue
+
+        if not isinstance(description, str):
+            description = ""
+
+        cleaned_games.append({
+            "name": name.strip(),
+            "path": path.strip(),
+            "description": description.strip()
+        })
+
+    return save_json_file(GAMES_FILE, cleaned_games)
+
+
 def load_settings() -> dict:
     """
     Load launcher settings from settings.json.

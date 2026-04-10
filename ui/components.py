@@ -5,6 +5,8 @@ import subprocess
 import tkinter as tk
 from tkinter import messagebox
 
+from core.icon_manager import get_or_create_icon_image
+
 
 def on_enter(widget: tk.Widget, hover_color: str):
     """
@@ -34,10 +36,6 @@ def bind_hover_effect(widget: tk.Widget, normal_color: str, hover_color: str):
 def launch_game(game_path: str):
     """
     Launch a game executable if the file exists.
-
-    This function is intentionally placed in ui/components.py for now because
-    it is directly used by UI buttons/cards. Later, if you want, it can also
-    be moved into a dedicated launcher/action module.
     """
     if not isinstance(game_path, str) or not game_path.strip():
         messagebox.showerror("Error", "No valid game path was provided.")
@@ -63,15 +61,6 @@ def create_action_button(
 ) -> tk.Button:
     """
     Create a reusable themed action button.
-
-    This is intended for buttons like:
-    - Theme
-    - Config
-    - Refresh
-    - Other launcher actions
-
-    The button uses the theme dictionary instead of relying on global color
-    variables. This is important for the later live-theme system.
     """
     button = tk.Button(
         parent,
@@ -108,12 +97,10 @@ def create_game_card(
     Create a reusable themed game card.
 
     The card contains:
+    - an optional extracted executable icon
     - a game title
     - an optional game description
     - a launch button
-
-    The executable path is intentionally kept internal and is no longer shown
-    in the visible UI.
     """
     card = tk.Frame(
         parent,
@@ -124,32 +111,67 @@ def create_game_card(
         highlightbackground=theme["border"]
     )
 
+    top_row = tk.Frame(card, bg=theme["card"])
+    top_row.pack(fill="x", padx=12, pady=(10, 6))
+
+    # Fixed-size icon container in PIXELS, not text units.
+    icon_container = tk.Frame(
+        top_row,
+        width=48,
+        height=48,
+        bg=theme["card"]
+    )
+    icon_container.pack(side="left", padx=(0, 12), anchor="n")
+    icon_container.pack_propagate(False)
+
+    icon_label = tk.Label(
+        icon_container,
+        bg=theme["card"],
+        bd=0
+    )
+    icon_label.place(relx=0.5, rely=0.5, anchor="center")
+
+    icon_image = get_or_create_icon_image(game_path, size=40)
+    if icon_image is not None:
+        icon_label.configure(image=icon_image)
+        icon_label.image = icon_image
+    else:
+        icon_label.configure(
+            text="🎮",
+            fg=theme["subtle_text"],
+            font=("Segoe UI Emoji", 18)
+        )
+
+    text_container = tk.Frame(top_row, bg=theme["card"])
+    text_container.pack(side="left", fill="both", expand=True)
+
     title_label = tk.Label(
-        card,
+        text_container,
         text=game_name,
         bg=theme["card"],
         fg=theme["text"],
         font=("Segoe UI", 11, "bold"),
         anchor="w"
     )
-    title_label.pack(fill="x", padx=12, pady=(10, 4))
+    title_label.pack(fill="x", pady=(0, 4))
 
     display_description = description.strip() if isinstance(description, str) else ""
+    is_fallback_description = not bool(display_description)
 
-    if not display_description:
-        display_description = "No description available."
+    if is_fallback_description:
+        display_description = "No description set"
 
     description_label = tk.Label(
-        card,
+        text_container,
         text=display_description,
         bg=theme["card"],
         fg=theme["subtle_text"],
-        font=("Segoe UI", 9),
+        font=("Segoe UI", 9, "italic") if is_fallback_description else ("Segoe UI", 9),
         anchor="w",
         justify="left",
-        wraplength=520
+        wraplength=460
     )
-    description_label.pack(fill="x", padx=12, pady=(0, 10))
+    description_label.pack(fill="x")
 
     effective_launch_command = launch_command or (lambda: launch_game(game_path))
 
@@ -174,15 +196,33 @@ def create_game_card(
 
     def apply_card_hover():
         card.configure(bg=theme["card_hover"])
+        top_row.configure(bg=theme["card_hover"])
+        icon_container.configure(bg=theme["card_hover"])
+        icon_label.configure(bg=theme["card_hover"])
+        text_container.configure(bg=theme["card_hover"])
         title_label.configure(bg=theme["card_hover"])
         description_label.configure(bg=theme["card_hover"])
 
     def remove_card_hover():
         card.configure(bg=theme["card"])
+        top_row.configure(bg=theme["card"])
+        icon_container.configure(bg=theme["card"])
+        icon_label.configure(bg=theme["card"])
+        text_container.configure(bg=theme["card"])
         title_label.configure(bg=theme["card"])
         description_label.configure(bg=theme["card"])
 
-    for widget in (card, title_label, description_label):
+    hover_widgets = (
+        card,
+        top_row,
+        icon_container,
+        icon_label,
+        text_container,
+        title_label,
+        description_label,
+    )
+
+    for widget in hover_widgets:
         widget.bind("<Enter>", lambda event: apply_card_hover())
         widget.bind("<Leave>", lambda event: remove_card_hover())
 
