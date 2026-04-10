@@ -1,17 +1,26 @@
-# Pokémon Hack Launcher
+<p align="center">
+  <img src="assets/banner.png" alt="Pokémon Hack Launcher Banner">
+</p>
 
-[![GitHub release](https://img.shields.io/github/v/release/Barath0n/Pokemon-Hack-Launcher)](https://github.com/Barath0n/Pokemon-Hack-Launcher/releases)
-![Downloads](https://img.shields.io/github/downloads/Barath0n/Pokemon-Hack-Launcher/total)
-![License](https://img.shields.io/github/license/Barath0n/Pokemon-Hack-Launcher)
-![Python](https://img.shields.io/badge/python-3.x-blue)
+<h1 align="center">Pokémon Hack Launcher</h1>
 
-A lightweight fan-made launcher for managing and launching Pokémon ROM hacks and fangames that are distributed as standalone `.exe` files.
+<p align="center">
+  <img src="https://img.shields.io/github/v/release/Barath0n/Pokemon-Hack-Launcher">
+  <img src="https://img.shields.io/github/downloads/Barath0n/Pokemon-Hack-Launcher/total">
+  <img src="https://img.shields.io/github/license/Barath0n/Pokemon-Hack-Launcher">
+  <img src="https://img.shields.io/badge/python-3.x-blue">
+</p>
 
-Many Pokémon fan games and ROM hacks are released as individual Windows executables.  
-This launcher provides a clean and convenient way to organize them in one place and launch them from a single interface.
+<p align="center">
+A lightweight fan-made launcher for organizing and launching Pokémon ROM hacks and fangames distributed as standalone Windows executables.
+</p>
 
-⬇ **Download the latest version:**  
-[https://github.com/Barath0n/PokemonHackLauncher/releases/latest](https://github.com/Barath0n/Pokemon-Hack-Launcher/releases)
+<p align="center">
+⬇ <b>Download the latest version</b><br>
+<a href="https://github.com/Barath0n/Pokemon-Hack-Launcher/releases/latest">
+https://github.com/Barath0n/Pokemon-Hack-Launcher/releases/latest
+</a>
+</p>
 
 ---
 
@@ -47,11 +56,11 @@ This launcher provides a clean and convenient way to organize them in one place 
 
 # Installation
 
-1. Download the latest release from the **Releases** page.
-2. Extract the ZIP archive.
-3. Run `PokemonHackLauncher.exe`.
+1. Download the latest version from the **Releases page**
+2. Extract the ZIP archive
+3. Run `PokemonHackLauncher.exe`
 
-The launcher will automatically create required files on first start.
+The launcher will automatically create the required configuration files on first start.
 
 ---
 
@@ -67,7 +76,7 @@ To add a game:
 4. Select the game `.exe`
 5. Save
 
-The launcher will automatically store the entry in `games.json`.
+The launcher automatically stores the entry in `games.json`.
 
 No manual editing of configuration files is required.
 
@@ -121,13 +130,15 @@ The launcher updates instantly without restarting.
 
 # Project Structure
 
+
+```
 core/
 ui/
 launcher.py
 games.json
 themes.json
 settings.json
-
+```
 
 The project separates **core logic** and **UI components** to keep the codebase easier to maintain and expand.
 
